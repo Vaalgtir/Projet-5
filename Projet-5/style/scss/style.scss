@@ -1,0 +1,315 @@
+$color-primary: #f3e9f1;
+$color-secondary: #736E72;
+$bckground-primary: #FFF5FD;
+$bckground-secondary: #F2E9F0;
+$bckground-tertiary: rgb(243, 175, 255);
+
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.button {
+    cursor: pointer;
+    background-color: $bckground-tertiary;
+    color: black;
+    border: solid 2px $bckground-tertiary;
+    text-align: center;
+    border-radius: 5rem;
+    padding: 0.75rem 0.5rem;
+    margin: 1rem 0;
+    transition: all 400ms;
+    &:hover {
+        background-color: $bckground-secondary;
+        border: solid 2px $color-secondary;
+        color: $color-secondary;
+    }
+}
+
+nav  {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 10vh;
+    background-color: $color-primary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & img {
+        max-height: 10vh
+    }
+    & i {
+        right: 2rem;
+        top: 2.2vh;
+        transition: color 400ms;
+        color: $color-secondary;
+        &:hover {
+            color: $bckground-tertiary;
+        }
+    }
+}
+
+
+// style for index.html
+main {
+    background-color: $bckground-primary;
+    margin-top: 10vh;
+    padding: 2rem 10%;
+    & .article {
+        padding: 1rem 2rem;
+        margin: 1rem 0;
+        background-color: $bckground-secondary;
+        border-radius: 1rem;
+        box-shadow: 0.2rem 0.2rem 0.4rem 0rem #BDBDBD;
+        display: grid;
+        align-items: center;
+        row-gap: 2rem;
+        & img {
+            max-width: 100%;
+        }
+        & h1 {
+            text-align: center;
+        }
+        & .ajoutPanier {
+            color: #ef5350;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+    }
+    & .wrapperPopupArticle {
+        position: fixed;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        background-color: rgb(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        & i {
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: whitesmoke;
+            color: black;
+            padding: 1rem;
+            cursor: pointer;
+            transition: color 400ms;
+            &:hover {
+                color: $bckground-tertiary;
+            }
+        }
+        & .popupArticle {
+            width: 80%;
+            height: 80vh;
+            background-color: $bckground-primary;
+            border-radius: 1rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            & img {
+                max-width: 100%;
+            }
+            & section {
+                padding: 1rem 2rem;
+                & h1 {
+                    text-align: center;
+                }
+                & h2 {
+                    padding: 2rem 0 3rem 0;
+                }
+                & ul {
+                    list-style: none;
+                    & li {
+                        padding: 0.5rem;
+                        display: flex;
+                        justify-content: space-between;
+                        border-top: 1px solid rgb(115, 110, 114, 0.5);
+                    }
+                    & li:last-child {
+                        border-bottom: 1px solid rgb(115, 110, 114, 0.5);
+                    }
+                }
+            }
+            & .button {
+                margin-top: 5rem;
+                grid-column: 2/3;
+            }
+        }
+    }
+}
+
+// style for panier.html
+.panierContent {
+    text-align: center;
+    & .button {
+        font-size: 1.5rem;
+    }
+    & .wrapperAction {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        & .wrapperButton {
+            display: flex;
+            flex-direction: column;
+            & .button {
+                padding: 0.5rem 0.5rem;
+            }
+        }
+        & .wrapperTotalPrice {
+            font-size: 1.3rem;
+        }
+    }
+    & .wrapperPopupContact {
+        position: fixed;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        background-color: rgb(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        & i {
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: whitesmoke;
+            color: black;
+            padding: 1rem;
+            cursor: pointer;
+            transition: color 400ms;
+            &:hover {
+                color: $bckground-tertiary;
+            }
+        }
+        & .popupContact {
+            height: 80vh;
+            background-color: $bckground-primary;
+            border-radius: 1rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            align-items: center;
+            & form {
+                display: grid;
+                grid-template-columns: 1fr;
+                align-items: center;
+                gap: 1.5rem;
+                & input {
+                    padding: 0.5rem;
+                }
+                & .inactive {
+                    cursor: default;
+                    background-color: white;
+                    color: #9E9E9E;
+                    border: solid 2px #9E9E9E;
+                    text-align: center;
+                    border-radius: 5rem;
+                    padding: 0.75rem 0.5rem;
+                    margin: 1rem 0;
+                    transition: all 400ms;
+                    &:hover {
+                        border: solid 2px #9E9E9E;
+                        color: #9E9E9E;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// style for confirmation.html
+.confirmationContent {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 83vh;
+}
+
+// style for small screen 
+@media screen and (max-width : 670px) {
+    nav {
+        flex-direction: column;
+        height: auto;
+        & i {
+            position: default;
+            padding-bottom: 1rem;
+        }
+    }
+
+    // style for index.html
+    main {
+        & .article {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+        & .wrapperPopupArticle {
+            & .popupArticle {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+
+    // style for panier.html
+    .panierContent {
+        & .wrapperAction {
+            flex-direction: column;
+        }
+    }
+}
+
+// style for big screen 
+@media screen and (min-width : 670px) {
+    nav {
+        & i {
+            position: absolute;
+        }
+    }
+
+    // style for index.html
+    main {
+        & .article {
+            grid-template-columns: repeat(7, 1fr);
+            & img {
+                grid-column: 1/2;
+            }
+            & h1 {
+                grid-column: 1/8;
+            }
+            & div {
+                grid-column: 3/6;
+            }
+            & .ajoutPanier {
+                grid-column: 7/8;
+                text-align: right;
+                & span {
+                    margin-right: 2rem;
+                }
+            }
+        }
+        & .wrapperPopupArticle {
+            & .popupArticle {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    }
+
+    // style for panier.html
+    .panierContent {
+        & .wrapperPopupContact {
+            & .popupContact {
+                width: 30%;
+            }
+        }
+    }
+}
+    

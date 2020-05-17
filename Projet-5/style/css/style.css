@@ -1,0 +1,282 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.button {
+  cursor: pointer;
+  background-color: #f3afff;
+  color: black;
+  border: solid 2px #f3afff;
+  text-align: center;
+  border-radius: 5rem;
+  padding: 0.75rem 0.5rem;
+  margin: 1rem 0;
+  transition: all 400ms;
+}
+.button:hover {
+  background-color: #F2E9F0;
+  border: solid 2px #736E72;
+  color: #736E72;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 10vh;
+  background-color: #f3e9f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+nav img {
+  max-height: 10vh;
+}
+nav i {
+  right: 2rem;
+  top: 2.2vh;
+  transition: color 400ms;
+  color: #736E72;
+}
+nav i:hover {
+  color: #f3afff;
+}
+
+main {
+  background-color: #FFF5FD;
+  margin-top: 10vh;
+  padding: 2rem 10%;
+}
+main .article {
+  padding: 1rem 2rem;
+  margin: 1rem 0;
+  background-color: #F2E9F0;
+  border-radius: 1rem;
+  box-shadow: 0.2rem 0.2rem 0.4rem 0rem #BDBDBD;
+  display: grid;
+  align-items: center;
+  row-gap: 2rem;
+}
+main .article img {
+  max-width: 100%;
+}
+main .article h1 {
+  text-align: center;
+}
+main .article .ajoutPanier {
+  color: #ef5350;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+main .wrapperPopupArticle {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main .wrapperPopupArticle i {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: whitesmoke;
+  color: black;
+  padding: 1rem;
+  cursor: pointer;
+  transition: color 400ms;
+}
+main .wrapperPopupArticle i:hover {
+  color: #f3afff;
+}
+main .wrapperPopupArticle .popupArticle {
+  width: 80%;
+  height: 80vh;
+  background-color: #FFF5FD;
+  border-radius: 1rem;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+main .wrapperPopupArticle .popupArticle img {
+  max-width: 100%;
+}
+main .wrapperPopupArticle .popupArticle section {
+  padding: 1rem 2rem;
+}
+main .wrapperPopupArticle .popupArticle section h1 {
+  text-align: center;
+}
+main .wrapperPopupArticle .popupArticle section h2 {
+  padding: 2rem 0 3rem 0;
+}
+main .wrapperPopupArticle .popupArticle section ul {
+  list-style: none;
+}
+main .wrapperPopupArticle .popupArticle section ul li {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(115, 110, 114, 0.5);
+}
+main .wrapperPopupArticle .popupArticle section ul li:last-child {
+  border-bottom: 1px solid rgba(115, 110, 114, 0.5);
+}
+main .wrapperPopupArticle .popupArticle .button {
+  margin-top: 5rem;
+  grid-column: 2/3;
+}
+
+.panierContent {
+  text-align: center;
+}
+.panierContent .button {
+  font-size: 1.5rem;
+}
+.panierContent .wrapperAction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.panierContent .wrapperAction .wrapperButton {
+  display: flex;
+  flex-direction: column;
+}
+.panierContent .wrapperAction .wrapperButton .button {
+  padding: 0.5rem 0.5rem;
+}
+.panierContent .wrapperAction .wrapperTotalPrice {
+  font-size: 1.3rem;
+}
+.panierContent .wrapperPopupContact {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.panierContent .wrapperPopupContact i {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: whitesmoke;
+  color: black;
+  padding: 1rem;
+  cursor: pointer;
+  transition: color 400ms;
+}
+.panierContent .wrapperPopupContact i:hover {
+  color: #f3afff;
+}
+.panierContent .wrapperPopupContact .popupContact {
+  height: 80vh;
+  background-color: #FFF5FD;
+  border-radius: 1rem;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+.panierContent .wrapperPopupContact .popupContact form {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 1.5rem;
+}
+.panierContent .wrapperPopupContact .popupContact form input {
+  padding: 0.5rem;
+}
+.panierContent .wrapperPopupContact .popupContact form .inactive {
+  cursor: default;
+  background-color: white;
+  color: #9E9E9E;
+  border: solid 2px #9E9E9E;
+  text-align: center;
+  border-radius: 5rem;
+  padding: 0.75rem 0.5rem;
+  margin: 1rem 0;
+  transition: all 400ms;
+}
+.panierContent .wrapperPopupContact .popupContact form .inactive:hover {
+  border: solid 2px #9E9E9E;
+  color: #9E9E9E;
+}
+
+.confirmationContent {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 83vh;
+}
+
+@media screen and (max-width: 670px) {
+  nav {
+    flex-direction: column;
+    height: auto;
+  }
+  nav i {
+    position: default;
+    padding-bottom: 1rem;
+  }
+
+  main .article {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  main .wrapperPopupArticle .popupArticle {
+    grid-template-columns: 1fr;
+  }
+
+  .panierContent .wrapperAction {
+    flex-direction: column;
+  }
+}
+@media screen and (min-width: 670px) {
+  nav i {
+    position: absolute;
+  }
+
+  main .article {
+    grid-template-columns: repeat(7, 1fr);
+  }
+  main .article img {
+    grid-column: 1/2;
+  }
+  main .article h1 {
+    grid-column: 1/8;
+  }
+  main .article div {
+    grid-column: 3/6;
+  }
+  main .article .ajoutPanier {
+    grid-column: 7/8;
+    text-align: right;
+  }
+  main .article .ajoutPanier span {
+    margin-right: 2rem;
+  }
+  main .wrapperPopupArticle .popupArticle {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .panierContent .wrapperPopupContact .popupContact {
+    width: 30%;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

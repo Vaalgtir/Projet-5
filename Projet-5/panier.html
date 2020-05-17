@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="style/css/style.css">
+    <link rel="stylesheet" type="text/css" href="fontawesome/css/all.css">
+</head>
+
+<body>
+    <nav>
+        <a href="index.html"><img src="image/Logo.png" alt="Logo"></a>
+    </nav>
+
+    <main class="panierContent">
+        <div class="wrapperAction">
+            <h1>Votre commande :</h1>
+            <div class="wrapperTotalPrice"> Prix total de la commande : <span class="totalPrice"></span></div>
+            <div class="wrapperButton">
+                <div class="button buttonClear">Vider le panier</div>
+                <div class="button buttonSubmit">Valider la commande</div>
+            </div>
+        </div>
+
+        
+        <!-- target of the script for adding content -->
+        <div class="localContent"></div>
+
+        <div class="wrapperPopupContact">
+            <i class="fas fa-times"></i>
+            <div class="popupContact">
+                <h1>Formulaire de contact</h1>
+                <form>
+                    <input type="text" placeholder="Prénom" class="prenom" required>
+                    <input type="text" placeholder="NOM" class="nom" required>
+                    <input type="text" placeholder="Adresse" class="adresse" required>
+                    <input type="text" placeholder="Ville" class="ville" required>
+                    <input type="text" placeholder="e-mail" class="mail" required>
+                    <input type="submit" value="Valider et envoyer" class="button finalButton inactive">
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script src="js/panier.js"></script>
+</body>
+
+</html>
