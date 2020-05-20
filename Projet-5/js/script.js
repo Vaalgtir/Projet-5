@@ -40,7 +40,17 @@ get("http://localhost:3000/api/cameras/")
 
         for (let i = 0; i < response.length; i++) {
             // creation of an article
-            content = content + '<section class="article"><h1>' + response[i].name + '</h1><img src="' + response[i].imageUrl + '" alt="' + response[i].name + '"><div class="detail"><p><h2>Description :</h2><span>' + response[i].description + '</span></p></div><div class="ajoutPanier"><span>' + response[i].price / 100 + '€</span><div class="button button__personnalisation" id="' + response[i]._id + '">Ajoutez au Panier</div></div></section>'
+            content = content + '<section class="article">'+
+                                    '<h1>' + response[i].name + '</h1>'+
+                                    '<img src="' + response[i].imageUrl + '" alt="' + response[i].name + '">'+
+                                    '<div class="detail">'+
+                                        '<p><h2>Description :</h2><span>' + response[i].description + '</span></p>'+
+                                    '</div>'+
+                                    '<div class="ajoutPanier">'+
+                                        '<span>' + response[i].price / 100 + '€</span>'+
+                                        '<div class="button button__personnalisation" id="' + response[i]._id + '">Ajoutez au Panier</div>'+
+                                    '</div>'+
+                                '</section>';
             document.querySelector("main").innerHTML = "<span></span>" + content + "<div class='localPopup'></div>";
         }
     })
@@ -50,13 +60,29 @@ get("http://localhost:3000/api/cameras/")
             
             get("http://localhost:3000/api/cameras/" + id).then(response => {
                 // creation of the popup
-                content1 = '<div class="wrapperPopupArticle"><i class="fas fa-times"></i><div class="popupArticle"><img src="' + response.imageUrl + '" alt="' + response.name + '"><section><h1>' + response.name + '</h1><ul><h2>Caractéristiques :</h2><li><h3>Objectifs</h3><select>'
+                content1 = '<div class="wrapperPopupArticle">'+
+                                '<i class="fas fa-times"></i>'+
+                                '<div class="popupArticle">'+
+                                    '<img src="' + response.imageUrl + '" alt="' + response.name + '">'+
+                                    '<section>'+
+                                        '<h1>' + response.name + '</h1>'+
+                                        '<ul>'+
+                                            '<h2>Caractéristiques :</h2>'+
+                                            '<li>'+
+                                                '<h3>Objectifs</h3>'+
+                                                '<select>';
 
                 for (let x = 0; x < response.lenses.length; x++) {
                     content1 = content1 + '<option class="option' + x + '">' + response.lenses[x] + '</option>';
                 };
 
-                content1 = content1 + '</select></li></ul><div class="button button__panier" id="' + response._id + '">Ajouter au panier</div></section></div></div>'
+                        content1 = content1 +   '</select>'+
+                                            '</li>'+
+                                        '</ul>'+
+                                        '<div class="button button__panier" id="' + response._id + '">Ajouter au panier</div>'+
+                                    '</section>'+
+                                '</div>'+
+                            '</div>';
 
                 document.querySelector("main .localPopup").innerHTML = content1;
 

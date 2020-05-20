@@ -70,7 +70,17 @@ $(document).ready(function () {
                 document.querySelector(".totalPrice").textContent = totalPrice + '€';
     
                 // creation of an article
-                content = content + '<section class="article"><h1>' + response.name + '</h1><img src="' + response.imageUrl + '" alt="' + response.name + '"><div class="detail"><p><h2>Description :</h2><span>' + response.description + '</span></p></div><div class="ajoutPanier"><span>' + response.price/100 + ' €</span></div></section>'
+                content = content + '<section class="article">'+
+                                        '<h1>' + response.name + '</h1>'+
+                                        '<img src="' + response.imageUrl + '" alt="' + response.name + '">'+
+                                        '<div class="detail">'+
+                                            '<p>'+
+                                                '<h2>Description :</h2>'+
+                                                '<span>' + response.description + '</span>'+
+                                            '</p>'+
+                                        '</div>'+
+                                        '<div class="ajoutPanier"><span>' + response.price/100 + ' €</span></div>'+
+                                    '</section>';
     
                 document.querySelector("main .localContent").innerHTML = precedentContent + content;
             })
@@ -182,42 +192,6 @@ $(document).ready(function () {
                     .then(() => {
                         document.location.href = 'confirmation.html';
                     })
-
-                // function sendSubmit() {
-                //     return new Promise(function (resolve) {
-                //         var body = {
-                //             contact: {
-                //                 firstName: document.querySelector(".prenom").value,
-                //                 lastName: document.querySelector(".nom").value,
-                //                 address: document.querySelector(".adresse").value,
-                //                 city: document.querySelector(".ville").value,
-                //                 email: document.querySelector(".mail").value,
-                //             },
-                //             products: tabArticle,
-                //         }
-
-
-                        // var request = new XMLHttpRequest();
-
-                        // request.onreadystatechange = function () {
-                        //     if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
-                        //         sessionStorage.setItem("orderId", JSON.parse(this.responseText).orderId)
-                        //         resolve();
-                        //     }
-                        // }
-
-                        // request.open("POST", "http://localhost:3000/api/cameras/order");
-                        // request.setRequestHeader("Content-Type", "application/json");
-                        // request.send(JSON.stringify(body));
-                //     })
-                // }
-
-                // async function changePage() {
-                //     await sendSubmit().then(function () {
-                //         document.location.href = 'confirmation.html';
-                //     })
-                // }
-                // changePage();
             };
         })
 
