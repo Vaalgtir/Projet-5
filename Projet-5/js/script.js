@@ -6,33 +6,35 @@ if (sessionStorage.getItem('nombreArticle') != null && is_int(sessionStorage.get
 }
 sessionStorage.setItem("nombreArticle", nmbrArticle);
 
-// function running the xml request
-function get(url) {
-    return new Promise(function (resolve, reject) {
-        var request = new XMLHttpRequest();
+// FUNCTION'S SECTION
+    // function running the xml request
+    function get(url) {
+        return new Promise(function (resolve, reject) {
+            var request = new XMLHttpRequest();
 
-        request.onreadystatechange = function () {
-            if (this.readyState == XMLHttpRequest.DONE) {
-                if(this.status == 200) {
-                    var response = JSON.parse(this.responseText); 
-                    return resolve(response);
-                } else {
-                    return reject(console.error("La requête XML a échoué"))
+            request.onreadystatechange = function () {
+                if (this.readyState == XMLHttpRequest.DONE) {
+                    if(this.status == 200) {
+                        var response = JSON.parse(this.responseText); 
+                        return resolve(response);
+                    } else {
+                        return reject(console.error("La requête XML a échoué"))
+                    }
                 }
-            }
-        };
-        request.open("GET", url);
-        request.send();
-    });
-}
-// function testing the type of a variable
-function is_int(value) {
-    if ((parseFloat(value) == parseInt(value)) && !isNaN(value)) {
-        return true;
-    } else {
-        return false;
+            };
+            request.open("GET", url);
+            request.send();
+        });
     }
-}
+    // function testing the type of a variable
+    function is_int(value) {
+        if ((parseFloat(value) == parseInt(value)) && !isNaN(value)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+// END OF FUNCTION'S SECTION
 
 get("http://localhost:3000/api/cameras/")
     .then((response) => {

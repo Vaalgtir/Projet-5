@@ -5,96 +5,102 @@ $(document).ready(function () {
         var nmbrArticle = 0;
     }
 
-    // functions running the xml request
-    function get(url) {
-        return new Promise(function (resolve, reject) {
-            var request = new XMLHttpRequest();
+    // FUNCTION'S SECTION
 
-            request.onreadystatechange = function () {
-                if (this.readyState == XMLHttpRequest.DONE) {
-                    if(this.status == 200) {
-                        var responseReq = JSON.parse(this.responseText); 
-                        return resolve(responseReq);
-                    } else {
-                        return reject(console.error("La requête XML a échoué"))
+        // functions running the xml request
+        function get(url) {
+            return new Promise(function (resolve, reject) {
+                var request = new XMLHttpRequest();
+
+                request.onreadystatechange = function () {
+                    if (this.readyState == XMLHttpRequest.DONE) {
+                        if(this.status == 200) {
+                            var responseReq = JSON.parse(this.responseText); 
+                            return resolve(responseReq);
+                        } else {
+                            return reject(console.error("La requête XML a échoué"))
+                        }
                     }
-                }
-            };
-            request.open("GET", url);
-            request.send();
-        });
-    }
-    function post(url, sent) {
-        return new Promise(function(resolve, reject) {
-            var request = new XMLHttpRequest();
-    
-            request.onreadystatechange = function () {
-                if (this.readyState == XMLHttpRequest.DONE) {
-                    if (this.status == 201) {
-                        resolve(JSON.parse(this.responseText).orderId);
-                    } else {
-                        reject(console.error("Pas d'order ID reçu"))
-                    }
-                }
-            }
-    
-            request.open("POST", url);
-            request.setRequestHeader("Content-Type", "application/json");
-            request.send(JSON.stringify(sent));
-        })
-    }
-    // function testing the type of a variable
-    function is_int(value) {
-        if ((parseFloat(value) == parseInt(value)) && !isNaN(value)) {
-            return true;
-        } else {
-            return false;
+                };
+                request.open("GET", url);
+                request.send();
+            });
         }
-    }
+        function post(url, sent) {
+            return new Promise(function(resolve, reject) {
+                var request = new XMLHttpRequest();
+        
+                request.onreadystatechange = function () {
+                    if (this.readyState == XMLHttpRequest.DONE) {
+                        if (this.status == 201) {
+                            resolve(JSON.parse(this.responseText).orderId);
+                        } else {
+                            reject(console.error("Pas d'order ID reçu"))
+                        }
+                    }
+                }
+        
+                request.open("POST", url);
+                request.setRequestHeader("Content-Type", "application/json");
+                request.send(JSON.stringify(sent));
+            })
+        }
+        
+        function showArticle() {
+            for (let i = 1; i <= nmbrArticle; i++) {
+                var article = sessionStorage.getItem("article" + i);
+                get("http://localhost:3000/api/cameras/" + article).then(response => {
+                    var content = "";
+                    var precedentContent = document.querySelector("main .localContent").innerHTML;
+        
+                    totalPrice = totalPrice + response.price/100;
+                    document.querySelector(".totalPrice").textContent = totalPrice + '€';
+        
+                    // creation of an article
+                    content = content + '<section class="article">'+
+                                            '<h1>' + response.name + '</h1>'+
+                                            '<img src="' + response.imageUrl + '" alt="' + response.name + '">'+
+                                            '<div class="detail">'+
+                                                '<p>'+
+                                                    '<h2>Description :</h2>'+
+                                                    '<span>' + response.description + '</span>'+
+                                                '</p>'+
+                                            '</div>'+
+                                            '<div class="ajoutPanier"><span>' + response.price/100 + ' €</span></div>'+
+                                        '</section>';
+        
+                    document.querySelector("main .localContent").innerHTML = precedentContent + content;
+                })
+            }
+        }
 
-    var tabArticle = [];
-    var totalPrice = 0;
+        function activationButton() {
+            if (validPrenom == true && validNom == true && validAdresse == true && validVille == true && validMail == true) {
+                $(".wrapperPopupContact .finalButton").removeClass("inactive");
+            } else {
+                $(".wrapperPopupContact .finalButton").addClass("inactive");
+            }
+        }
+        // function testing the type of a variable
+        function is_int(value) {
+            if ((parseFloat(value) == parseInt(value)) && !isNaN(value)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
+    // END OF FUNCTION'S SECTION
+
+    // VARIABLE'S SECTION
+        var tabArticle = [];
+        var totalPrice = 0;
+    // END OF VARIABLE'S SECTION
+
+    // initialization of the array of article
     for (let a = 1; a <= nmbrArticle; a++) {
         tabArticle.push(sessionStorage.getItem("article" + a));
     }
-
-    function showArticle() {
-        for (let i = 1; i <= nmbrArticle; i++) {
-            var article = sessionStorage.getItem("article" + i);
-            get("http://localhost:3000/api/cameras/" + article).then(response => {
-                var content = "";
-                var precedentContent = document.querySelector("main .localContent").innerHTML;
-    
-                totalPrice = totalPrice + response.price/100;
-                document.querySelector(".totalPrice").textContent = totalPrice + '€';
-    
-                // creation of an article
-                content = content + '<section class="article">'+
-                                        '<h1>' + response.name + '</h1>'+
-                                        '<img src="' + response.imageUrl + '" alt="' + response.name + '">'+
-                                        '<div class="detail">'+
-                                            '<p>'+
-                                                '<h2>Description :</h2>'+
-                                                '<span>' + response.description + '</span>'+
-                                            '</p>'+
-                                        '</div>'+
-                                        '<div class="ajoutPanier"><span>' + response.price/100 + ' €</span></div>'+
-                                    '</section>';
-    
-                document.querySelector("main .localContent").innerHTML = precedentContent + content;
-            })
-        }
-    }
-
-    function activationButton() {
-        if (validPrenom == true && validNom == true && validAdresse == true && validVille == true && validMail == true) {
-            $(".wrapperPopupContact .finalButton").removeClass("inactive");
-        } else {
-            $(".wrapperPopupContact .finalButton").addClass("inactive");
-        }
-    }
-
 
     $(".wrapperPopupContact").hide();
 
