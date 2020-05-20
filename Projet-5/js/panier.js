@@ -5,6 +5,44 @@ $(document).ready(function () {
         var nmbrArticle = 0;
     }
 
+    // functions running the xml request
+    function get(url) {
+        return new Promise(function (resolve, reject) {
+            var request = new XMLHttpRequest();
+
+            request.onreadystatechange = function () {
+                if (this.readyState == XMLHttpRequest.DONE) {
+                    if(this.status == 200) {
+                        var responseReq = JSON.parse(this.responseText); 
+                        return resolve(responseReq);
+                    } else {
+                        return reject(console.error("La requête XML a échoué"))
+                    }
+                }
+            };
+            request.open("GET", url);
+            request.send();
+        });
+    }
+    function post(url, sent) {
+        return new Promise(function(resolve, reject) {
+            var request = new XMLHttpRequest();
+    
+            request.onreadystatechange = function () {
+                if (this.readyState == XMLHttpRequest.DONE) {
+                    if (this.status == 201) {
+                        resolve(JSON.parse(this.responseText).orderId);
+                    } else {
+                        reject(console.error("Pas d'order ID reçu"))
+                    }
+                }
+            }
+    
+            request.open("POST", url);
+            request.setRequestHeader("Content-Type", "application/json");
+            request.send(JSON.stringify(sent));
+        })
+    }
     // function testing the type of a variable
     function is_int(value) {
         if ((parseFloat(value) == parseInt(value)) && !isNaN(value)) {
@@ -23,28 +61,22 @@ $(document).ready(function () {
 
     function showArticle() {
         for (let i = 1; i <= nmbrArticle; i++) {
-            var request = new XMLHttpRequest();
             var article = sessionStorage.getItem("article" + i);
-
-            request.onreadystatechange = function () {
-                if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-                    var response = JSON.parse(this.responseText);
-                    var content = "";
-                    var precedentContent = document.querySelector("main .localContent").innerHTML;
-
-                    totalPrice = totalPrice + response.price/100;
-                    document.querySelector(".totalPrice").textContent = totalPrice + '€';
-
-                    // creation of an article
-                    content = content + '<section class="article"><h1>' + response.name + '</h1><img src="' + response.imageUrl + '" alt="' + response.name + '"><div class="detail"><p><h2>Description :</h2><span>' + response.description + '</span></p></div><div class="ajoutPanier"><span>' + response.price/100 + ' €</span></div></section>'
-
-                    document.querySelector("main .localContent").innerHTML = precedentContent + content;
-                }
-            };
-            request.open("GET", " http://localhost:3000/api/cameras/" + article);
-            request.send();
+            get("http://localhost:3000/api/cameras/" + article).then(response => {
+                var content = "";
+                var precedentContent = document.querySelector("main .localContent").innerHTML;
+    
+                totalPrice = totalPrice + response.price/100;
+                document.querySelector(".totalPrice").textContent = totalPrice + '€';
+    
+                // creation of an article
+                content = content + '<section class="article"><h1>' + response.name + '</h1><img src="' + response.imageUrl + '" alt="' + response.name + '"><div class="detail"><p><h2>Description :</h2><span>' + response.description + '</span></p></div><div class="ajoutPanier"><span>' + response.price/100 + ' €</span></div></section>'
+    
+                document.querySelector("main .localContent").innerHTML = precedentContent + content;
+            })
         }
     }
+
     function activationButton() {
         if (validPrenom == true && validNom == true && validAdresse == true && validVille == true && validMail == true) {
             $(".wrapperPopupContact .finalButton").removeClass("inactive");
@@ -131,42 +163,61 @@ $(document).ready(function () {
         $(".wrapperPopupContact .finalButton").click(function () {
             if (!$(".wrapperPopupContact .finalButton").hasClass("inactive")) {
                 event.preventDefault();
-
-                function sendSubmit() {
-                    return new Promise(function (resolve) {
-                        var body = {
-                            contact: {
-                                firstName: document.querySelector(".prenom").value,
-                                lastName: document.querySelector(".nom").value,
-                                address: document.querySelector(".adresse").value,
-                                city: document.querySelector(".ville").value,
-                                email: document.querySelector(".mail").value,
-                            },
-                            products: tabArticle,
-                        }
-
-
-                        var request = new XMLHttpRequest();
-
-                        request.onreadystatechange = function () {
-                            if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
-                                sessionStorage.setItem("orderId", JSON.parse(this.responseText).orderId)
-                                resolve();
-                            }
-                        }
-
-                        request.open("POST", "http://localhost:3000/api/cameras/order");
-                        request.setRequestHeader("Content-Type", "application/json");
-                        request.send(JSON.stringify(body));
-                    })
+                
+                var body = {
+                    contact: {
+                        firstName: document.querySelector(".prenom").value,
+                        lastName: document.querySelector(".nom").value,
+                        address: document.querySelector(".adresse").value,
+                        city: document.querySelector(".ville").value,
+                        email: document.querySelector(".mail").value,
+                    },
+                    products: tabArticle,
                 }
 
-                async function changePage() {
-                    await sendSubmit().then(function () {
+                post("http://localhost:3000/api/cameras/order", body)
+                    .then(response => {
+                        sessionStorage.setItem("orderId", response)
+                    })
+                    .then(() => {
                         document.location.href = 'confirmation.html';
                     })
-                }
-                changePage();
+
+                // function sendSubmit() {
+                //     return new Promise(function (resolve) {
+                //         var body = {
+                //             contact: {
+                //                 firstName: document.querySelector(".prenom").value,
+                //                 lastName: document.querySelector(".nom").value,
+                //                 address: document.querySelector(".adresse").value,
+                //                 city: document.querySelector(".ville").value,
+                //                 email: document.querySelector(".mail").value,
+                //             },
+                //             products: tabArticle,
+                //         }
+
+
+                        // var request = new XMLHttpRequest();
+
+                        // request.onreadystatechange = function () {
+                        //     if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
+                        //         sessionStorage.setItem("orderId", JSON.parse(this.responseText).orderId)
+                        //         resolve();
+                        //     }
+                        // }
+
+                        // request.open("POST", "http://localhost:3000/api/cameras/order");
+                        // request.setRequestHeader("Content-Type", "application/json");
+                        // request.send(JSON.stringify(body));
+                //     })
+                // }
+
+                // async function changePage() {
+                //     await sendSubmit().then(function () {
+                //         document.location.href = 'confirmation.html';
+                //     })
+                // }
+                // changePage();
             };
         })
 
